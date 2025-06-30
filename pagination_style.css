@@ -1,0 +1,56 @@
+
+	maia-search .maia-button { height: 30px;} 
+	ul.pagination {
+		display: inline-block;
+		padding: 0;
+		margin: 0;
+	}
+
+	ul.pagination li {display: inline;}
+
+	ul.pagination li a {
+		color: black;
+		float: left;
+		padding: 8px 16px;
+		text-decoration: none;
+		transition: background-color .3s;
+		border: 1px solid #ddd;
+	}
+
+	.pagination li:first-child a {
+		border-top-left-radius: 5px;
+		border-bottom-left-radius: 5px;
+	}
+
+	.pagination li:last-child a {
+		border-top-right-radius: 5px;
+		border-bottom-right-radius: 5px;
+	}
+
+	ul.pagination li a.active {
+		background-color: #4CAF50;
+		color: white;
+		border: 1px solid #4CAF50;
+	}
+
+	ul.pagination li a:hover:not(.active) {background-color: #ddd;}
+	#zone_update_objet table{width:100%}
+	#zone_update_objet table tr th{text-align:right}
+	input{border: 1px solid #e5e5e5;
+		border-top-color: #dcdcdc;
+		color: #666;
+		display: inline-block;
+		line-height: normal;
+		margin: 0 10px 0 0;
+		padding: 6px 10px;}
+		td form{margin:0;}
+		td form input{margin:0;padding:0}
+		select {border: 1px solid #e5e5e5;
+		border-top-color: #dcdcdc;
+		color: #666;
+		display: inline-block;
+		line-height: normal;
+		margin: 0 10px 0 0;
+		padding: 6px 10px;}
+		table tr th{text-align:center}
+	.tr_sup{text-decoration:line-through;color:red}
