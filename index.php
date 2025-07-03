@@ -108,6 +108,9 @@ error_reporting(E_ALL);
 			}	
 		}
 		catch(Exception $e){echo "Echec: " . $e->getMessage();}
+		// Redirection après déconnexion
+		header("Location: security/index.php");
+		exit();
 	}
 	// if(isset($_POST["bt_attribuer_carnet"]))attribuer_carnet();
 ?>
