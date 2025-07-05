@@ -15,6 +15,8 @@ error_reporting(E_ALL);
 	<head>
 		<meta charset="utf-8">
 		<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+
 
 <?php
 	session_start();
@@ -211,20 +213,43 @@ error_reporting(E_ALL);
 	
 	<body>
 	<!--p style="background:#ff0000aa;color:#f00;text-align:center">your hosting plan has been renewed for 2 years</p-->
-	<span id="r_entete_snp" style="width:10px;float:left;display:none"><a href='#xx'>&raquo;</a></span>
-		<div class="maia-util" style='height:40px' id='entete_snp'>
-         <span style="font-size:20px;font-weight:bold">DGRAD-SNP / <span style='color:blue' ><?php echo isset($_GET["class"])?"$_GET[class]":"Accueil"?></span></span> <span id="linck_to_print"><a href='#xx'>Print</a></span>
-		 <?php echo isset($_SESSION["db_annee"])?$_SESSION["db_annee"]:""?>
-		<span id="loading" style="color:red;display:none" >Chargement en cours... <img src="loader.gif" style="width:15px"/></span>
-		 <p style="width:auto;float:right;margin:0;padding:0" >O.O.
-			<input id="check_to" title="Cochez et Considérer uniquement les notes avec O.O" type="checkbox" style="width:">
-			<select style="width:90px" id="id_antenne" ><option value="">Ressort</option><?php echo Commune::options("  ",0); ?></select>
-			<select style="width:120px" id="id_service" ><option value="">Service</option><?php echo Service::options("",0); ?></select>
-			<input id="date_ordo1" placeholder="Date Ordo1" type="date" value="<?php echo date("Y-m") ;?>-01" style="widthh:95px">
-			<input id="date_ordo2" placeholder="Date Ordo2" type="date" value="<?php echo date("Y-m-d") /* "2016-12-31"*/;?>" style="widthh:95px">
-			<input id="dt_save" title="Cochez et Considérer la date d'enregistrement plutôt que celle de dépot" type="checkbox" style="width:">
-            
-        </p>
+	<div class="container-fluid bg-light py-2">
+  <div class="d-flex align-items-center justify-content-between">
+    <div class="d-flex align-items-center">
+      <span id="r_entete_snp" class="me-2 d-none"><a href='#xx'>&raquo;</a></span>
+      <div id="entete_snp" class="maia-util">
+        <span class="fs-5 fw-bold">DGRAD-SNP / 
+          <span class="text-primary"><?php echo isset($_GET["class"]) ? $_GET["class"] : "Accueil" ?></span>
+        </span>
+        <span id="linck_to_print" class="ms-3"><a href='#xx'>Print</a></span>
+<button id="btnPdfClean" class="btn btn-sm btn-danger ms-2" style="display:none;">Exporter PDF</button>
+        <span class="ms-3"><?php echo isset($_SESSION["db_annee"]) ? $_SESSION["db_annee"] : "" ?></span>
+        <span id="loading" class="text-danger d-none ms-3">
+          Chargement en cours... <img src="loader.gif" style="width:15px"/>
+        </span>
+      </div>
+    </div>
+
+    <div class="d-flex align-items-center gap-2">
+      <label class="form-check-label me-1" for="check_to">O.O.</label>
+      <input id="check_to" class="form-check-input" type="checkbox" title="Cochez et Considérer uniquement les notes avec O.O">
+
+      <select id="id_antenne" class="form-select form-select-lg w-auto">
+        <option value="">Ressort</option>
+        <?php echo Commune::options("  ", 0); ?>
+      </select>
+
+      <select id="id_service" class="form-select form-select-lg w-auto">
+        <option value="">Service</option>
+        <?php echo Service::options("", 0); ?>
+      </select>
+
+      <input id="date_ordo1" type="date" class="form-control form-control-lg w-auto" value="<?php echo date("Y-m") ;?>-01" placeholder="Date Ordo1">
+      <input id="date_ordo2" type="date" class="form-control form-control-lg w-auto" value="<?php echo date("Y-m-d"); ?>" placeholder="Date Ordo2">
+
+      <input id="dt_save" class="form-check-input" type="checkbox" title="Cochez et Considérer la date d'enregistrement plutôt que celle de dépot">
+    </div>
+  </div>
         </div>
 		<div class='maia-nav maia-complex' id='maia-nav-x' role='navigation' style='margin-bottom:10px'>
 		
@@ -332,7 +357,7 @@ error_reporting(E_ALL);
 			<div style='text-align:center'>
         			<?php
         			if(isset($_SESSION["connected"]) and $_SESSION["connected"] == "OK")
-        				echo "<form method='POST'><input type='submit' name='bt_deconx' value='DéConneter'/></form>";
+        				echo "<form method='POST'> <input type='submit' name='bt_deconx' value='Déconnecter' class='btn btn-danger'/></form>";
         			else if(isset($_SESSION["connected"]) and $_SESSION["connected"] == "ATTENTE"){
         			    echo "<h3 style='color:blue'>UN CODE A ETE ENVOYE DANS VOTRE BOITE MAIL, TAPEZ-LE ICI POUR VALIDER VOTRE IDENTITE</h3>";
         			    echo "<form method='POST'><input type='password' name='code' placeholder='code secret'/><input type='submit' name='bt_second_conx' value='VALIDER CODE SECRET'/></form>";
@@ -350,45 +375,66 @@ error_reporting(E_ALL);
         				if(isset($_POST["bt_login"]) and isset($_SESSION["message"]) and ""!=$_SESSION["message"])
         					echo "<h3 style='color:red'>$_SESSION[message]</h3>";
         			    ?>
-            			<form method="POST" style='width:auto;margin:auto'>
-            			<table style="width:150px;margin: auto;">
-            			<caption><h3>CONNECTEZ VOUS ICI.</h3></caption><tr><th>Login:</th><td><input name="login" value="-" style="width:150px"/></td></tr>
-            			<tr><th>Password:</th><td><input type="password" name="password" value="" style="width:150px"/></td></tr>
-            			<tr><th>Annee:</th><td>
-            				<select name="annee" value="" style="width:150px">
-            					<option value="3" selected >2022</option>
-            					<option value="2"  >2018 A 2021</option>
-            					<option value="1">2015 A 2017</option>
-            				</select>
-            			</td></tr>
-            			<tr><td></td><td><input type="submit" name="bt_login" value="Connexion"/></td></tr>
-            			</table>
-            			</form>
-        			
-        			        <?php 
-        			    } ?>
-    			</div>
-    			<p>L’analyste en informatique est celui qui, d’une part, évalue les besoins informatiques et techniques des utilisateurs et qui, d’autre part, veille à l’implantation et à l’évaluation des systèmes informatiques. Selon les besoins informatiques, que ce soit à propos de la performance du système ou de la correction d’une défaillance, l’analyste en informatique est appelé à chercher des solutions et à assurer la qualité de ses applications. Il peut endosser différents rôles : analyste fonctionnel, analyste technique et analyste de systèmes.</p>
-    			
-    			<h3> Tâches et responsabilités</h3>
-    			<ul>
-    				<li>Analyser les besoins informatiques et techniques de l’entreprise.</li>
-    				<li>Participer au développement, à la mise en place et à la réalisation des stratégies en matière informatique.</li>
-    				<li>Conseiller les personnes responsables de l’informatique dans l’entreprise.</li>
-    				<li>Veiller à la qualité des produits et des services informatiques selon les standards, les normes et les procédures en vigueur.</li>
-    				<li>Proposer et appliquer des solutions aux défaillances informatiques.</li>
-    				<li>Analyser les coûts des systèmes informatiques, l’utilisation de ces systèmes et les solutions proposées pour l’optimisation.</li>
-    			</ul>
-    			<h4>Contact: 089 89 200 46, 097 2 44 44 66</h4>
-    		
+    <form method="POST" class="mx-auto mt-5 p-4 shadow rounded bg-light" style="max-width: 430px; padding: 50px">
+    <h1 class="text-center mb-4 fw-bold border-bottom pb-2">Connectez-vous</h1>
+
+    <div class="mb-3">
+        <label for="login" class="form-label">Login</label>
+        <input type="text" class="form-control form-control-lg" style="width : 390px" id="login" name="login" value="-" required>
+    </div>
+
+    <div class="mb-3">
+        <label for="password" class="form-label">Mot de passe</label>
+        <input type="password" class="form-control form-control-lg" id="password" name="password" required>
+    </div>
+
+    <div class="mb-4">
+        <label for="annee" class="form-label">Année</label>
+        <select class="form-select form-select-lg" id="annee" name="annee" required>
+            <option value="3" selected>2022</option>
+            <option value="2">2018 à 2021</option>
+            <option value="1">2015 à 2017</option>
+        </select>
+    </div>
+
+    <div class="d-grid">
+        <button type="submit" name="bt_login" class="btn btn-primary btn-lg">Connexion</button>
+    </div>
+</form>
+
+        		<?php 
+        			    } 
+						
+	?>
+					
+        			    
+
+    	 <?php if (isset($_SESSION["connected"]) && $_SESSION["connected"] == "OK") { ?>
+        <div class="bg-white p-5 rounded shadow-sm mt-4">
+            <p class="fs-5">
+                L’analyste en informatique est celui qui, d’une part, évalue les besoins informatiques et techniques des utilisateurs et qui, d’autre part, veille à l’implantation et à l’évaluation des systèmes informatiques. Selon les besoins informatiques, que ce soit à propos de la performance du système ou de la correction d’une défaillance, l’analyste en informatique est appelé à chercher des solutions et à assurer la qualité de ses applications. Il peut endosser différents rôles : analyste fonctionnel, analyste technique et analyste de systèmes.
+            </p>
+
+            <h3 class="section-title text-primary">Tâches et responsabilités</h3>
+            <ul class="custom-list list-unstyled">
+                <li class="check-icon">Analyser les besoins informatiques et techniques de l’entreprise.</li>
+                <li class="check-icon">Participer au développement, à la mise en place et à la réalisation des stratégies en matière informatique.</li>
+                <li class="check-icon">Conseiller les personnes responsables de l’informatique dans l’entreprise.</li>
+                <li class="check-icon">Veiller à la qualité des produits et des services informatiques selon les standards, les normes et les procédures en vigueur.</li>
+                <li class="check-icon">Proposer et appliquer des solutions aux défaillances informatiques.</li>
+                <li class="check-icon">Analyser les coûts des systèmes informatiques, l’utilisation de ces systèmes et les solutions proposées pour l’optimisation.</li>
+            </ul>
+        </div>
 		        <?php 
-		    } ?>	
+		    } ?>
+			     <?php 
+		    } ?>		
 		<hr/>
-		<p>ChelDap vous remercie d'avoir accepté d'utiliser son produit; Merci</p>
 		</div>
 		<iframe name='iframe' style='width:100%;display:none' ></iframe>
 		<div id='retourHtmlAjaxLIST' style='width:1%;display:none' ></div>
-	
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 <script type="text/javascript" src="script.js"></script>
 <script type="text/javascript" src="jquery.min.js"></script>
 		<script src="asset/js/select2.full.min.js"></script>
@@ -603,6 +649,7 @@ error_reporting(E_ALL);
 		/* function assu_autocomplet(){			
 			new autocomplete(document.getElementById("id_assujetti_ordo"));
 		} */
+	
 		$(".link_to_releve").click(function(){
 			alert("")
 			window.open()
