@@ -61,7 +61,7 @@ try {
           <a class="nav-link" href="users.php">Utilisateurs</a>
         </li>
       </ul>
-      <form class="d-flex" method="post" action="login_face.php">
+      <form class="d-flex" method="post" action="../security/index.php">
         <input type="hidden" name="bt_deconx" value="1">
         <button class="btn btn-outline-light" type="submit">Déconnexion</button>
       </form>
@@ -75,7 +75,7 @@ try {
                 <h4 class="text-center py-3">Admin</h4>
                 <a href="index.php" class="active">Dashboard</a>
                 <a href="users.php">Utilisateurs</a>
-                <a href="../index.php" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">Déconnexion</a>
+                <a href="../security/index.php">Déconnexion</a>
                 <form id="logout-form" method="post" action="login_face.php" style="display:none;">
                     <input type="hidden" name="bt_deconx" value="1">
                 </form>

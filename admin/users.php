@@ -82,9 +82,9 @@ try {
         <?php foreach ($users as $user): ?>
             <tr class="user-row" onclick="window.location='user_detail.php?id=<?php echo $user['id']; ?>'">
                 <td><?php echo htmlspecialchars($user['id']); ?></td>
-                <td><?php echo htmlspecialchars($user['name']); ?></td>
-                <td><?php echo htmlspecialchars($user['age']); ?></td>
-                <td><?php echo htmlspecialchars($user['address']); ?></td>
+                <td><?php echo htmlspecialchars($user['Name']); ?></td>
+                <td><?php echo htmlspecialchars($user['Age']); ?></td>
+                <td><?php echo htmlspecialchars($user['Address']); ?></td>
                 <td><a href="user_detail.php?id=<?php echo $user['id']; ?>" class="btn btn-primary btn-sm">Détail</a></td>
             </tr>
         <?php endforeach; ?>

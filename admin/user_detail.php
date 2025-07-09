@@ -77,11 +77,11 @@ try {
         <div class="card-header bg-primary text-white">Détail de l'utilisateur</div>
         <div class="card-body">
             <?php if ($user): ?>
-                <h5 class="card-title mb-3">Nom : <?php echo htmlspecialchars($user['name']); ?></h5>
+                <h5 class="card-title mb-3">Nom : <?php echo htmlspecialchars($user['Name']); ?></h5>
                 <ul class="list-group list-group-flush mb-3">
                     <li class="list-group-item"><strong>ID :</strong> <?php echo htmlspecialchars($user['id']); ?></li>
-                    <li class="list-group-item"><strong>Âge :</strong> <?php echo htmlspecialchars($user['age']); ?></li>
-                    <li class="list-group-item"><strong>Adresse :</strong> <?php echo htmlspecialchars($user['address']); ?></li>
+                    <li class="list-group-item"><strong>Âge :</strong> <?php echo htmlspecialchars($user['Age']); ?></li>
+                    <li class="list-group-item"><strong>Adresse :</strong> <?php echo htmlspecialchars($user['Address']); ?></li>
                 </ul>
                 <a href="users.php" class="btn btn-secondary">Retour à la liste</a>
                 <a href="index.php" class="btn btn-outline-primary">Dashboard</a>
