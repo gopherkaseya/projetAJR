@@ -411,19 +411,23 @@ error_reporting(E_ALL);
 
     	 <?php if (isset($_SESSION["connected"]) && $_SESSION["connected"] == "OK") { ?>
         <div class="bg-white p-5 rounded shadow-sm mt-4">
-            <p class="fs-5">
-                L’analyste en informatique est celui qui, d’une part, évalue les besoins informatiques et techniques des utilisateurs et qui, d’autre part, veille à l’implantation et à l’évaluation des systèmes informatiques. Selon les besoins informatiques, que ce soit à propos de la performance du système ou de la correction d’une défaillance, l’analyste en informatique est appelé à chercher des solutions et à assurer la qualité de ses applications. Il peut endosser différents rôles : analyste fonctionnel, analyste technique et analyste de systèmes.
-            </p>
+       <p class="fs-5">
+    La Direction Générale des Recettes Administratives, Judiciaires, Domaniales et de Participation (DGRAD) s’articule autour de plusieurs phases essentielles. Elle commence par la phase de <span>prévision</span>, où sont identifiées et planifiées les recettes attendues de l’État. Ensuite vient la phase de <span>liquidation</span>, qui consiste à déterminer le montant exact dû par le redevable. Suit la phase de <span>ordonnancement</span>, durant laquelle l’ordre de recouvrement est émis. Enfin, la phase de <span>recouvrement</span> permet l’encaissement effectif des recettes au profit du Trésor public. Chaque étape est cruciale pour assurer une gestion rigoureuse et transparente des finances publiques.
+</p>
+
+
 
             <h3 class="section-title text-primary">Tâches et responsabilités</h3>
             <ul class="custom-list list-unstyled">
-                <li class="check-icon">Analyser les besoins informatiques et techniques de l’entreprise.</li>
-                <li class="check-icon">Participer au développement, à la mise en place et à la réalisation des stratégies en matière informatique.</li>
-                <li class="check-icon">Conseiller les personnes responsables de l’informatique dans l’entreprise.</li>
-                <li class="check-icon">Veiller à la qualité des produits et des services informatiques selon les standards, les normes et les procédures en vigueur.</li>
-                <li class="check-icon">Proposer et appliquer des solutions aux défaillances informatiques.</li>
-                <li class="check-icon">Analyser les coûts des systèmes informatiques, l’utilisation de ces systèmes et les solutions proposées pour l’optimisation.</li>
-            </ul>
+    <li class="check-icon">La DGRAD est la régie financière chargée de recouvrer les recettes non fiscales pour le compte du Trésor public.</li>
+    <li class="check-icon">Ces recettes incluent les taxes administratives, judiciaires, domaniales et les dividendes provenant de la participation de l’État dans les entreprises.</li>
+    <li class="check-icon">Elles sont générées par les ministères et services d’assiette à travers des actes administratifs ou l’exploitation des biens publics et privés.</li>
+    <li class="check-icon">La DGRAD intervient dans les phases d’ordonnancement et de recouvrement, garantissant la traçabilité et la légalité des opérations financières.</li>
+    <li class="check-icon">Elle peut effectuer une taxation ou un ordonnancement d’office si les services d’assiette ne remplissent pas leur rôle.</li>
+    <li class="check-icon">Créée pour sécuriser les recettes autrefois mal gérées, elle joue un rôle central dans la mobilisation des ressources non fiscales.</li>
+    <li class="check-icon">Sa mission est de canaliser efficacement ces recettes afin de soutenir le financement des politiques publiques nationales.</li>
+</ul>
+
         </div>
 		        <?php 
 		    } ?>
